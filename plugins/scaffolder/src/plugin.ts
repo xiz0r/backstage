@@ -102,6 +102,14 @@ export const ScaffolderPage = scaffolderPlugin.provide(
   }),
 );
 
+export const NextScaffolderPage = scaffolderPlugin.provide(
+  createRoutableExtension({
+    name: 'NextScaffolderPage',
+    component: () => import('./next/Router').then(m => m.Router),
+    mountPoint: rootRouteRef,
+  }),
+);
+
 export const OwnedEntityPickerFieldExtension = scaffolderPlugin.provide(
   createScaffolderFieldExtension({
     component: OwnedEntityPicker,

@@ -54,6 +54,7 @@ export {
   RepoUrlPickerFieldExtension,
   ScaffolderPage,
   scaffolderPlugin,
+  NextScaffolderPage,
 } from './plugin';
 export * from './components';
 export type { TaskPageProps } from './components/TaskPage';
