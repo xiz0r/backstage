@@ -17,12 +17,12 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAsync from 'react-use/lib/useAsync';
-import { techdocsApiRef } from '../../api';
-import { TechDocsNotFound } from './TechDocsNotFound';
+import { techdocsApiRef } from '../../../api';
+import { TechDocsNotFound } from '../TechDocsNotFound';
 import { useApi } from '@backstage/core-plugin-api';
 import { Page, Content } from '@backstage/core-components';
-import { Reader } from './Reader';
-import { TechDocsReaderPageHeader } from './TechDocsReaderPageHeader';
+import { Reader } from '../Reader';
+import { TechDocsReaderPageHeader } from '../TechDocsReaderPageHeader';
 
 /**
  * @deprecated Use {@link TechDocsReaderPage} instead.
