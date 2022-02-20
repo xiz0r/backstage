@@ -20,7 +20,7 @@ export type {
   TechDocsPageRenderFunction,
   TechDocsReaderPageRenderFunction,
 } from './TechDocsReaderPage';
-export { TechDocsPage } from './TechDocsReaderPage';
+export { TechDocsPage, TechDocsReaderPageLayout } from './TechDocsReaderPage';
 export * from './TechDocsReaderPageHeader';
 export * from './TechDocsStateIndicator';
 
