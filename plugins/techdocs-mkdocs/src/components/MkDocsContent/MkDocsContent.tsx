@@ -42,6 +42,10 @@ import { beforeSanitizeElements, afterSanitizeAttributes } from './hooks';
 
 const host = <div data-testid="techdocs-content-shadowroot" />;
 
+/**
+ * Renders TechDocs content using MkDocs and ShadowRoot
+ * @public
+ */
 export const MkDocsContent = () => {
   const configApi = useApi(configApiRef);
   const { entityDocs, setReady } = useTechDocsReader();

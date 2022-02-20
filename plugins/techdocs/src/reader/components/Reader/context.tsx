@@ -37,11 +37,19 @@ const TechDocsReaderContext = createContext<TechDocsReaderValue>(
   {} as TechDocsReaderValue,
 );
 
-type TechDocsReaderProviderProps = PropsWithChildren<{
+/**
+ * Props for {@link TechDocsReaderProvider}
+ * @public
+ */
+export type TechDocsReaderProviderProps = PropsWithChildren<{
   entityName: CompoundEntityRef;
   onReady?: () => void;
 }>;
 
+/**
+ * Provides access to the Reader context
+ * @public
+ */
 export const TechDocsReaderProvider = ({
   children,
   entityName,

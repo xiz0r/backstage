@@ -26,19 +26,56 @@ import DOMPurify from 'dompurify';
 
 import { TechDocsShadowDomProvider } from './context';
 
-type SanitizeParameters = Parameters<typeof DOMPurify.sanitize>;
+/**
+ * DOMPurify sanitizer parameters
+ * @public
+ */
+export type SanitizeParameters = Parameters<typeof DOMPurify.sanitize>;
+
+/**
+ * Document sanitizer source
+ * @public
+ */
 export type TechDocsShadowDomSource = SanitizeParameters[0];
+
+/**
+ * Document sanitizer configuration
+ * @public
+ */
 export type TechDocsShadowDomConfig = Omit<
   SanitizeParameters[1],
   'WHOLE_DOCUMENT' | 'RETURN_DOM'
 >;
 
-type AddHookParameters = Parameters<typeof DOMPurify.addHook>;
-type HookName = AddHookParameters[0];
-type HookCallback = AddHookParameters[1];
+/**
+ * DOMPurify addHook function
+ * @public
+ */
+export type AddHookParameters = Parameters<typeof DOMPurify.addHook>;
+
+/**
+ * A sanitizer hook name key
+ * @public
+ */
+export type HookName = AddHookParameters[0];
+
+/**
+ * A sanitizer hook callback function
+ * @public
+ */
+export type HookCallback = AddHookParameters[1];
+
+/**
+ * Document sanitizer hooks
+ * @public
+ */
 export type TechDocsShadowDomHooks = Partial<Record<HookName, HookCallback>>;
 
-type TechDocsShadowDomProps = PropsWithChildren<{
+/**
+ * Props from {@link TechDocsShadowDom}
+ * @public
+ */
+export type TechDocsShadowDomProps = PropsWithChildren<{
   host: ReactElement;
   source: TechDocsShadowDomSource;
   config?: TechDocsShadowDomConfig;
@@ -46,6 +83,10 @@ type TechDocsShadowDomProps = PropsWithChildren<{
   onAttached?: (shadowRoot: ShadowRoot) => void;
 }>;
 
+/**
+ * Renders a HTML document as ShadowRoot in the host element
+ * @public
+ */
 export const TechDocsShadowDom = ({
   host,
   source,
