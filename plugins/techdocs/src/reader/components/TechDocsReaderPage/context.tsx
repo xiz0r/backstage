@@ -23,7 +23,7 @@ import React, {
 import { useParams } from 'react-router-dom';
 import useAsync from 'react-use/lib/useAsync';
 
-import { EntityName } from '@backstage/catalog-model';
+import { CompoundEntityRef } from '@backstage/catalog-model';
 import { useApi, useApp } from '@backstage/core-plugin-api';
 
 import { techdocsApiRef } from '../../../api';
@@ -32,12 +32,14 @@ import { TechDocsEntityMetadata, TechDocsMetadata } from '../../../types';
 type TechDocsReaderPageValue = {
   isReady: boolean;
   onReady: () => void;
-  entityRef: EntityName;
+  path: string;
+  entityRef: CompoundEntityRef;
   entityMetadataValue?: TechDocsEntityMetadata | undefined;
   techdocsMetadataValue?: TechDocsMetadata | undefined;
 };
 
 const TechDocsReaderPageContext = createContext<TechDocsReaderPageValue>({
+  path: '',
   entityRef: { kind: '', namespace: '', name: '' },
   isReady: false,
   onReady: () => {},
@@ -73,6 +75,7 @@ export const TechDocsReaderPageProvider = ({
     entityRef,
     entityMetadataValue,
     techdocsMetadataValue,
+    path: params['*'],
     isReady: true,
     onReady: () => {},
   };
