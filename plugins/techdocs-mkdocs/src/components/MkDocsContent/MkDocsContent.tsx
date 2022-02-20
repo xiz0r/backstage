@@ -24,7 +24,23 @@ import {
   TechDocsShadowDomHooks,
 } from '@backstage/plugin-techdocs';
 
+import {
+  StylesTransformer,
+  ScriptTransformer,
+  ScrollTransformer,
+  HeaderTransformer,
+  FooterTransformer,
+  DrawerTransformer,
+  SidebarTransformer,
+  AnchorTransformer,
+  ImageTransformer,
+  SourceTransformer,
+  CodeTransformer,
+} from '../MkDocsContentTransformers';
+
 import { beforeSanitizeElements, afterSanitizeAttributes } from './hooks';
+
+const host = <div data-testid="techdocs-content-shadowroot" />;
 
 export const MkDocsContent = () => {
   const configApi = useApi(configApiRef);
@@ -51,8 +67,6 @@ export const MkDocsContent = () => {
     hooks.beforeSanitizeElements = beforeSanitizeElements(allowedHosts);
   }
 
-  const host = <div data-testid="techdocs-content-shadowroot" />;
-
   return (
     <TechDocsShadowDom
       host={host}
@@ -60,6 +74,18 @@ export const MkDocsContent = () => {
       config={config}
       hooks={hooks}
       onAttached={setReady}
-    />
+    >
+      <StylesTransformer />
+      <ScriptTransformer />
+      <ScrollTransformer />
+      <HeaderTransformer />
+      <FooterTransformer />
+      <DrawerTransformer />
+      <SidebarTransformer />
+      <AnchorTransformer />
+      <ImageTransformer />
+      <SourceTransformer />
+      <CodeTransformer />
+    </TechDocsShadowDom>
   );
 };

@@ -50,8 +50,6 @@ export const TechDocsReaderPageProvider = ({
   const techdocsApi = useApi(techdocsApiRef);
   const { NotFoundErrorPage } = useApp().getComponents();
 
-  const [isReady, setReady] = useState<boolean>(false);
-
   const entityRef = useMemo(
     () => ({
       kind: params.kind,
@@ -61,31 +59,25 @@ export const TechDocsReaderPageProvider = ({
     [params],
   );
 
-  const { value: techdocsMetadataValue } = useAsync(async () => {
-    if (isReady) {
+  const { value: techdocsMetadataValue, error: techddocsMetadataError } =
+    useAsync(async () => {
       return await techdocsApi.getTechDocsMetadata(entityRef);
-    }
-    return undefined;
-  }, [entityRef, isReady, techdocsApi]);
+    }, [entityRef, techdocsApi]);
 
   const { value: entityMetadataValue, error: entityMetadataError } =
     useAsync(async () => {
       return await techdocsApi.getEntityMetadata(entityRef);
     }, [entityRef, techdocsApi]);
 
-  const onReady = useCallback(() => {
-    setReady(true);
-  }, [setReady]);
-
   const value = {
     entityRef,
     entityMetadataValue,
     techdocsMetadataValue,
-    isReady,
-    onReady,
+    isReady: true,
+    onReady: () => {},
   };
 
-  if (entityMetadataError) {
+  if (techddocsMetadataError || entityMetadataError) {
     return <NotFoundErrorPage />;
   }
 
