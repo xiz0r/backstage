@@ -791,12 +791,11 @@ export const useTechDocsReaderDom = (
 };
 
 const TheReader = ({
-  entityRef,
-  onReady = () => {},
   withSearch = true,
-}: ReaderProps) => {
+}: Omit<ReaderProps, 'entityRef' | 'onReady'>) => {
   const classes = useStyles();
-  const dom = useTechDocsReaderDom(entityRef);
+  const { entityName, setReady: onReady } = useTechDocsReader();
+  const dom = useTechDocsReaderDom(entityName);
   const shadowDomRef = useRef<HTMLDivElement>(null);
 
   const onReadyRef = useRef<() => void>(onReady);
@@ -823,7 +822,7 @@ const TheReader = ({
       <TechDocsStateIndicator />
       {withSearch && shadowDomRef?.current?.shadowRoot?.innerHTML && (
         <Grid container className={classes.searchBar}>
-          <TechDocsSearch entityId={entityRef} />
+          <TechDocsSearch entityId={entityName} />
         </Grid>
       )}
       <div data-testid="techdocs-content-shadowroot" ref={shadowDomRef} />
@@ -839,12 +838,8 @@ const TheReader = ({
 export const Reader = (props: ReaderProps) => {
   const { entityRef, onReady = () => {}, withSearch = true } = props;
   return (
-    <TechDocsReaderProvider entityRef={entityRef}>
-      <TheReader
-        entityRef={entityRef}
-        onReady={onReady}
-        withSearch={withSearch}
-      />
+    <TechDocsReaderProvider entityName={entityRef} onReady={onReady}>
+      <TheReader withSearch={withSearch} />
     </TechDocsReaderProvider>
   );
 };
