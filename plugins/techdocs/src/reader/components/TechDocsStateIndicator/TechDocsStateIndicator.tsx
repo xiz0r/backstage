@@ -15,13 +15,17 @@
  */
 
 import React from 'react';
-import { Progress } from '@backstage/core-components';
+
 import { CircularProgress, Button, makeStyles } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+
+import { Progress } from '@backstage/core-components';
 
 import { TechDocsBuildLogs } from '../TechDocsBuildLogs';
 import { TechDocsNotFound } from '../TechDocsNotFound';
 import { useTechDocsReader } from '../Reader';
+import { useDocsSync } from '../useDocsSync';
+import { useDocsStatus } from '../useDocsStatus';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,24 +52,25 @@ export const TechDocsStateIndicator = () => {
   let StateAlert: JSX.Element | null = null;
   const classes = useStyles();
 
-  const {
-    state,
-    contentReload,
-    contentErrorMessage,
-    syncErrorMessage,
-    buildLog,
-  } = useTechDocsReader();
+  const { entityName, entityDocs } = useTechDocsReader();
+  const docsSync = useDocsSync(entityName, entityDocs);
+  const docsStatus = useDocsStatus(entityDocs, docsSync);
 
-  const ReaderProgress = state === 'CHECKING' ? <Progress /> : null;
+  const syncBuildLog = docsSync.log;
+  const syncErrorMessage = docsSync.error?.toString();
+  const contentReload = entityDocs.retry;
+  const contentErrorMessage = entityDocs.error?.toString();
 
-  if (state === 'INITIAL_BUILD') {
+  const ReaderProgress = docsStatus === 'CHECKING' ? <Progress /> : null;
+
+  if (docsStatus === 'INITIAL_BUILD') {
     StateAlert = (
       <Alert
         classes={{ root: classes.root }}
         variant="outlined"
         severity="info"
         icon={<CircularProgress size="24px" />}
-        action={<TechDocsBuildLogs buildLog={buildLog} />}
+        action={<TechDocsBuildLogs buildLog={syncBuildLog} />}
       >
         Documentation is accessed for the first time and is being prepared. The
         subsequent loads are much faster.
@@ -73,13 +78,13 @@ export const TechDocsStateIndicator = () => {
     );
   }
 
-  if (state === 'CONTENT_STALE_REFRESHING') {
+  if (docsStatus === 'CONTENT_STALE_REFRESHING') {
     StateAlert = (
       <Alert
         variant="outlined"
         severity="info"
         icon={<CircularProgress size="24px" />}
-        action={<TechDocsBuildLogs buildLog={buildLog} />}
+        action={<TechDocsBuildLogs buildLog={syncBuildLog} />}
         classes={{ root: classes.root }}
       >
         A newer version of this documentation is being prepared and will be
@@ -88,13 +93,13 @@ export const TechDocsStateIndicator = () => {
     );
   }
 
-  if (state === 'CONTENT_STALE_READY') {
+  if (docsStatus === 'CONTENT_STALE_READY') {
     StateAlert = (
       <Alert
         variant="outlined"
         severity="success"
         action={
-          <Button color="inherit" onClick={() => contentReload()}>
+          <Button color="inherit" onClick={contentReload}>
             Refresh
           </Button>
         }
@@ -106,12 +111,12 @@ export const TechDocsStateIndicator = () => {
     );
   }
 
-  if (state === 'CONTENT_STALE_ERROR') {
+  if (docsStatus === 'CONTENT_STALE_ERROR') {
     StateAlert = (
       <Alert
         variant="outlined"
         severity="error"
-        action={<TechDocsBuildLogs buildLog={buildLog} />}
+        action={<TechDocsBuildLogs buildLog={syncBuildLog} />}
         classes={{ root: classes.root, message: classes.message }}
       >
         Building a newer version of this documentation failed.{' '}
@@ -120,14 +125,14 @@ export const TechDocsStateIndicator = () => {
     );
   }
 
-  if (state === 'CONTENT_NOT_FOUND') {
+  if (docsStatus === 'CONTENT_NOT_FOUND') {
     StateAlert = (
       <>
         {syncErrorMessage && (
           <Alert
             variant="outlined"
             severity="error"
-            action={<TechDocsBuildLogs buildLog={buildLog} />}
+            action={<TechDocsBuildLogs buildLog={syncBuildLog} />}
             classes={{ root: classes.root, message: classes.message }}
           >
             Building a newer version of this documentation failed.{' '}

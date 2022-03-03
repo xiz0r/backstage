@@ -44,9 +44,9 @@ const host = <div data-testid="techdocs-content-shadowroot" />;
 
 export const MkDocsContent = () => {
   const configApi = useApi(configApiRef);
-  const { content, setReady } = useTechDocsReader();
+  const { entityDocs, setReady } = useTechDocsReader();
 
-  if (!content) {
+  if (entityDocs.loading || !entityDocs.value) {
     return null;
   }
 
@@ -70,7 +70,7 @@ export const MkDocsContent = () => {
   return (
     <TechDocsShadowDom
       host={host}
-      source={content}
+      source={entityDocs.value}
       config={config}
       hooks={hooks}
       onAttached={setReady}
