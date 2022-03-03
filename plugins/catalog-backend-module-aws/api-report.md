@@ -7,7 +7,7 @@ import { CatalogProcessor } from '@backstage/plugin-catalog-backend';
 import { CatalogProcessorEmit } from '@backstage/plugin-catalog-backend';
 import { Config } from '@backstage/config';
 import { LocationSpec } from '@backstage/plugin-catalog-backend';
-import { Logger as Logger_2 } from 'winston';
+import { Logger } from 'winston';
 
 // @public
 export class AwsOrganizationCloudAccountProcessor implements CatalogProcessor {
@@ -15,7 +15,7 @@ export class AwsOrganizationCloudAccountProcessor implements CatalogProcessor {
   static fromConfig(
     config: Config,
     options: {
-      logger: Logger_2;
+      logger: Logger;
     },
   ): AwsOrganizationCloudAccountProcessor;
   // (undocumented)

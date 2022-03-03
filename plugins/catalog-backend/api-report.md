@@ -22,7 +22,7 @@ import { GitHubIntegrationConfig } from '@backstage/integration';
 import { JsonObject } from '@backstage/types';
 import { JsonValue } from '@backstage/types';
 import { Location as Location_2 } from '@backstage/catalog-client';
-import { Logger as Logger_2 } from 'winston';
+import { Logger } from 'winston';
 import { Permission } from '@backstage/plugin-permission-common';
 import { PermissionAuthorizer } from '@backstage/plugin-permission-common';
 import { PermissionCondition } from '@backstage/plugin-permission-common';
@@ -115,13 +115,13 @@ export class AwsS3DiscoveryProcessor implements CatalogProcessor {
 export class AzureDevOpsDiscoveryProcessor implements CatalogProcessor {
   constructor(options: {
     integrations: ScmIntegrationRegistry;
-    logger: Logger_2;
+    logger: Logger;
   });
   // (undocumented)
   static fromConfig(
     config: Config,
     options: {
-      logger: Logger_2;
+      logger: Logger;
     },
   ): AzureDevOpsDiscoveryProcessor;
   // (undocumented)
@@ -141,9 +141,9 @@ export class BitbucketDiscoveryProcessor implements CatalogProcessor {
     parser?: (options: {
       integration: BitbucketIntegration;
       target: string;
-      logger: Logger_2;
+      logger: Logger;
     }) => AsyncIterable<CatalogProcessorResult>;
-    logger: Logger_2;
+    logger: Logger;
   });
   // (undocumented)
   static fromConfig(
@@ -152,9 +152,9 @@ export class BitbucketDiscoveryProcessor implements CatalogProcessor {
       parser?: (options: {
         integration: BitbucketIntegration;
         target: string;
-        logger: Logger_2;
+        logger: Logger;
       }) => AsyncIterable<CatalogProcessorResult>;
-      logger: Logger_2;
+      logger: Logger;
     },
   ): BitbucketDiscoveryProcessor;
   // (undocumented)
@@ -171,7 +171,7 @@ export class BitbucketDiscoveryProcessor implements CatalogProcessor {
 export type BitbucketRepositoryParser = (options: {
   integration: BitbucketIntegration;
   target: string;
-  logger: Logger_2;
+  logger: Logger;
 }) => AsyncIterable<CatalogProcessorResult>;
 
 // @public (undocumented)
@@ -259,7 +259,7 @@ export type CatalogEntityDocument = CatalogEntityDocument_2;
 
 // @public (undocumented)
 export type CatalogEnvironment = {
-  logger: Logger_2;
+  logger: Logger;
   database: PluginDatabaseManager;
   config: Config;
   reader: UrlReader;
@@ -375,14 +375,14 @@ export type CatalogRulesEnforcer = {
 export class CodeOwnersProcessor implements CatalogProcessor {
   constructor(options: {
     integrations: ScmIntegrationRegistry;
-    logger: Logger_2;
+    logger: Logger;
     reader: UrlReader;
   });
   // (undocumented)
   static fromConfig(
     config: Config,
     options: {
-      logger: Logger_2;
+      logger: Logger;
       reader: UrlReader;
     },
   ): CodeOwnersProcessor;
@@ -490,7 +490,7 @@ export class DefaultCatalogProcessingOrchestrator
   constructor(options: {
     processors: CatalogProcessor[];
     integrations: ScmIntegrationRegistry;
-    logger: Logger_2;
+    logger: Logger;
     parser: CatalogProcessorParser;
     policy: EntityPolicy;
     rulesEnforcer: CatalogRulesEnforcer;
@@ -678,14 +678,14 @@ function generalError(
 export class GithubDiscoveryProcessor implements CatalogProcessor {
   constructor(options: {
     integrations: ScmIntegrationRegistry;
-    logger: Logger_2;
+    logger: Logger;
     githubCredentialsProvider?: GithubCredentialsProvider;
   });
   // (undocumented)
   static fromConfig(
     config: Config,
     options: {
-      logger: Logger_2;
+      logger: Logger;
       githubCredentialsProvider?: GithubCredentialsProvider;
     },
   ): GithubDiscoveryProcessor;
@@ -710,7 +710,7 @@ export type GithubMultiOrgConfig = Array<{
 export class GithubMultiOrgReaderProcessor implements CatalogProcessor {
   constructor(options: {
     integrations: ScmIntegrationRegistry;
-    logger: Logger_2;
+    logger: Logger;
     orgs: GithubMultiOrgConfig;
     githubCredentialsProvider?: GithubCredentialsProvider;
   });
@@ -718,7 +718,7 @@ export class GithubMultiOrgReaderProcessor implements CatalogProcessor {
   static fromConfig(
     config: Config,
     options: {
-      logger: Logger_2;
+      logger: Logger;
       githubCredentialsProvider?: GithubCredentialsProvider;
     },
   ): GithubMultiOrgReaderProcessor;
@@ -738,7 +738,7 @@ export class GitHubOrgEntityProvider implements EntityProvider {
     id: string;
     orgUrl: string;
     gitHubConfig: GitHubIntegrationConfig;
-    logger: Logger_2;
+    logger: Logger;
     githubCredentialsProvider?: GithubCredentialsProvider;
   });
   // (undocumented)
@@ -749,7 +749,7 @@ export class GitHubOrgEntityProvider implements EntityProvider {
     options: {
       id: string;
       orgUrl: string;
-      logger: Logger_2;
+      logger: Logger;
       githubCredentialsProvider?: GithubCredentialsProvider;
     },
   ): GitHubOrgEntityProvider;
@@ -763,14 +763,14 @@ export class GitHubOrgEntityProvider implements EntityProvider {
 export class GithubOrgReaderProcessor implements CatalogProcessor {
   constructor(options: {
     integrations: ScmIntegrationRegistry;
-    logger: Logger_2;
+    logger: Logger;
     githubCredentialsProvider?: GithubCredentialsProvider;
   });
   // (undocumented)
   static fromConfig(
     config: Config,
     options: {
-      logger: Logger_2;
+      logger: Logger;
       githubCredentialsProvider?: GithubCredentialsProvider;
     },
   ): GithubOrgReaderProcessor;
@@ -790,7 +790,7 @@ export class GitLabDiscoveryProcessor implements CatalogProcessor {
   static fromConfig(
     config: Config,
     options: {
-      logger: Logger_2;
+      logger: Logger;
     },
   ): GitLabDiscoveryProcessor;
   // (undocumented)
@@ -1067,7 +1067,7 @@ export interface RouterOptions {
   // (undocumented)
   locationService: LocationService;
   // (undocumented)
-  logger: Logger_2;
+  logger: Logger;
   // (undocumented)
   permissionIntegrationRouter?: express.Router;
   // (undocumented)
@@ -1092,7 +1092,7 @@ export class StaticLocationProcessor implements StaticLocationProcessor {
 
 // @public (undocumented)
 export class UrlReaderProcessor implements CatalogProcessor {
-  constructor(options: { reader: UrlReader; logger: Logger_2 });
+  constructor(options: { reader: UrlReader; logger: Logger });
   // (undocumented)
   getProcessorName(): string;
   // (undocumented)
