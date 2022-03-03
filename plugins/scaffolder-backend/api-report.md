@@ -9,8 +9,6 @@ import { CatalogApi } from '@backstage/catalog-client';
 import { CatalogProcessor } from '@backstage/plugin-catalog-backend';
 import { CatalogProcessorEmit } from '@backstage/plugin-catalog-backend';
 import { Config } from '@backstage/config';
-import { ContainerRunner } from '@backstage/backend-common';
-import { createFetchCookiecutterAction } from '@backstage/plugin-scaffolder-backend-module-cookiecutter';
 import { createPullRequest } from 'octokit-plugin-create-pull-request';
 import { Entity } from '@backstage/catalog-model';
 import express from 'express';
@@ -21,7 +19,6 @@ import { Knex } from 'knex';
 import { LocationSpec } from '@backstage/plugin-catalog-backend';
 import { Logger } from 'winston';
 import { Observable } from '@backstage/types';
-import { Octokit } from 'octokit';
 import { PluginDatabaseManager } from '@backstage/backend-common';
 import { Schema } from 'jsonschema';
 import { ScmIntegrationRegistry } from '@backstage/integration';
@@ -35,7 +32,6 @@ import { Writable } from 'stream';
 
 // @public
 export type ActionContext<Input extends JsonObject> = {
-  baseUrl?: string;
   logger: Logger;
   logStream: Writable;
   secrets?: TaskSecrets;
@@ -45,9 +41,6 @@ export type ActionContext<Input extends JsonObject> = {
   createTemporaryDirectory(): Promise<string>;
   templateInfo?: TemplateInfo;
 };
-
-// @public @deprecated
-export type CompletedTaskState = TaskCompletionState;
 
 // @public
 export const createBuiltinActions: (
@@ -62,8 +55,6 @@ export interface CreateBuiltInActionsOptions {
   catalogClient: CatalogApi;
   // (undocumented)
   config: Config;
-  // @deprecated (undocumented)
-  containerRunner?: ContainerRunner;
   // (undocumented)
   integrations: ScmIntegrations;
   // (undocumented)
@@ -97,8 +88,6 @@ export function createDebugLogAction(): TemplateAction<{
   message?: string | undefined;
   listWorkspace?: boolean | undefined;
 }>;
-
-export { createFetchCookiecutterAction };
 
 // @public
 export function createFetchPlainAction(options: {
@@ -362,9 +351,6 @@ export type DatabaseTaskStoreOptions = {
   database: Knex;
 };
 
-// @public @deprecated
-export type DispatchResult = TaskBrokerDispatchResult;
-
 // @public
 export const executeShellCommand: (options: RunCommandOptions) => Promise<void>;
 
@@ -382,25 +368,6 @@ export function fetchContents({
   fetchUrl?: string;
   outputPath: string;
 }): Promise<void>;
-
-// Warning: (ae-missing-release-tag) "OctokitProvider" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public @deprecated
-export class OctokitProvider {
-  constructor(
-    integrations: ScmIntegrationRegistry,
-    githubCredentialsProvider?: GithubCredentialsProvider,
-  );
-  // Warning: (ae-forgotten-export) The symbol "OctokitIntegration" needs to be exported by the entry point index.d.ts
-  //
-  // @deprecated
-  getOctokit(
-    repoUrl: string,
-    options?: {
-      token?: string;
-    },
-  ): Promise<OctokitIntegration>;
-}
 
 // @public (undocumented)
 export interface OctokitWithPullRequestPluginClient {
@@ -423,8 +390,6 @@ export interface RouterOptions {
   // (undocumented)
   config: Config;
   // (undocumented)
-  containerRunner?: ContainerRunner;
-  // (undocumented)
   database: PluginDatabaseManager;
   // (undocumented)
   logger: Logger;
@@ -435,9 +400,6 @@ export interface RouterOptions {
   // (undocumented)
   taskWorkers?: number;
 }
-
-// @public @deprecated
-export const runCommand: (options: RunCommandOptions) => Promise<void>;
 
 // @public (undocumented)
 export type RunCommandOptions = {
@@ -479,9 +441,6 @@ export type SerializedTaskEvent = {
   type: TaskEventType;
   createdAt: string;
 };
-
-// @public @deprecated
-export type Status = TaskStatus;
 
 // @public
 export interface TaskBroker {
@@ -560,9 +519,6 @@ export class TaskManager implements TaskContext {
 export type TaskSecrets = Record<string, string> & {
   backstageToken?: string;
 };
-
-// @public @deprecated
-export type TaskState = CurrentClaimedTask;
 
 // @public
 export type TaskStatus =
