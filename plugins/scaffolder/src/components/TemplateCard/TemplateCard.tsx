@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { Entity, RELATION_OWNED_BY } from '@backstage/catalog-model';
-import { TemplateEntityV1beta2 } from '@backstage/plugin-scaffolder-common';
+import { TemplateEntityV1beta3 } from '@backstage/plugin-scaffolder-common';
 import {
   ScmIntegrationIcon,
   scmIntegrationsApiRef,
@@ -95,7 +95,7 @@ const useDeprecationStyles = makeStyles(theme => ({
 }));
 
 export type TemplateCardProps = {
-  template: TemplateEntityV1beta2;
+  template: TemplateEntityV1beta3;
   deprecated?: boolean;
 };
 
@@ -108,7 +108,7 @@ type TemplateProps = {
 };
 
 const getTemplateCardProps = (
-  template: TemplateEntityV1beta2,
+  template: TemplateEntityV1beta3,
 ): TemplateProps & { key: string } => {
   return {
     key: template.metadata.uid!,
