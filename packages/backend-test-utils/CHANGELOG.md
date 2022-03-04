@@ -1,5 +1,13 @@
 # @backstage/backend-test-utils
 
+## 0.1.21
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/cli@0.15.2
+  - @backstage/backend-common@0.13.0
+
 ## 0.1.20
 
 ### Patch Changes

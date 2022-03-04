@@ -1,5 +1,26 @@
 # @backstage/plugin-scaffolder-backend
 
+## 0.18.0
+
+### Minor Changes
+
+- f9c7bdd899: **BREAKING**:
+
+  - Removed the `createFetchCookiecutterAction` export, please use the `@backstage/plugin-scaffolder-backend-module-cookiecutter` package explicitly (see [its README](https://github.com/backstage/backstage/tree/master/plugins/scaffolder-backend-module-cookiecutter) for installation instructions).
+  - Removed the `containerRunner` argument from the types `RouterOptions` (as used by `createRouter`) and `CreateBuiltInActionsOptions` (as used by `createBuiltinActions`).
+
+- 5afbd16d43: **BREAKING**: Removed the previously deprecated `OctokitProvider` class.
+
+### Patch Changes
+
+- 458d16869c: Allow passing more repo configuration for `publish:github` action
+- Updated dependencies
+  - @backstage/plugin-catalog-backend@0.23.2
+  - @backstage/catalog-model@0.13.0
+  - @backstage/backend-common@0.13.0
+  - @backstage/catalog-client@0.9.0
+  - @backstage/plugin-scaffolder-common@0.2.4
+
 ## 0.17.3
 
 ### Patch Changes

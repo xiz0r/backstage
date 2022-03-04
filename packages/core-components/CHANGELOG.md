@@ -1,5 +1,11 @@
 # @backstage/core-components
 
+## 0.9.1
+
+### Patch Changes
+
+- 23568dd328: chore(deps): bump `@react-hookz/web` from 12.3.0 to 13.0.0
+
 ## 0.9.0
 
 ### Minor Changes

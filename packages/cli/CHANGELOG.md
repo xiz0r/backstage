@@ -1,5 +1,14 @@
 # @backstage/cli
 
+## 0.15.2
+
+### Patch Changes
+
+- d3d1b82198: chore(deps): bump `minimatch` from 5.0.0 to 5.0.1
+- b1aacbf96a: Applied the fix from version `0.15.1` of this package, which was part of the `v0.70.1` release of Backstage.
+- f06da37290: The backend development setup now ignores the `"browser"` and `"module"` entry points in `package.json`, and instead always uses `"main"`.
+- 6a1fe077ad: Changed the logic for how modules are marked as external in the Rollup build of packages. Rather than only marking dependencies and build-in Node.js modules as external, all non-relative imports are now considered external.
+
 ## 0.15.1
 
 ### Patch Changes

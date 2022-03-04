@@ -1,5 +1,22 @@
 # @backstage/plugin-scaffolder
 
+## 0.15.0
+
+### Minor Changes
+
+- 1360f7d73a: **BREAKING**: Removed `ScaffolderTaskOutput.entityRef` and `ScaffolderTaskOutput.remoteUrl`, which both have been deprecated for over a year. Please use the `links` output instead.
+
+### Patch Changes
+
+- d741c97b98: Render markdown for description in software templates
+- Updated dependencies
+  - @backstage/plugin-catalog-react@0.9.0
+  - @backstage/core-components@0.9.1
+  - @backstage/catalog-model@0.13.0
+  - @backstage/plugin-catalog-common@0.2.2
+  - @backstage/catalog-client@0.9.0
+  - @backstage/plugin-scaffolder-common@0.2.4
+
 ## 0.14.0
 
 ### Minor Changes
