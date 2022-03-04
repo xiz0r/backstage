@@ -15,7 +15,6 @@
  */
 
 import { JsonObject } from '@backstage/types';
-import { CompoundEntityRef } from '../types';
 import { EntityStatus } from './EntityStatus';
 
 /**
@@ -195,13 +194,6 @@ export type EntityRelation = {
    * The type of the relation.
    */
   type: string;
-
-  /**
-   * The target entity of this relation.
-   *
-   * @deprecated use targetRef instead
-   */
-  target: CompoundEntityRef;
 
   /**
    * The entity ref of the target of this relation.

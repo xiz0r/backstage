@@ -144,12 +144,10 @@ describe('buildEntitySearch', () => {
           {
             type: 't1',
             targetRef: 'k:ns/a',
-            target: { kind: 'k', namespace: 'ns', name: 'a' },
           },
           {
             type: 't2',
             targetRef: 'k:ns/b',
-            target: { kind: 'k', namespace: 'ns', name: 'b' },
           },
         ],
         apiVersion: 'a',
@@ -193,12 +191,10 @@ describe('buildEntitySearch', () => {
             {
               type: 'dup',
               targetRef: 'k:ns/a',
-              target: { kind: 'k', namespace: 'ns', name: 'a' },
             },
             {
               type: 'DUP',
               targetRef: 'k:ns/b',
-              target: { kind: 'k', namespace: 'ns', name: 'b' },
             },
           ],
           apiVersion: 'a',
