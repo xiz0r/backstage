@@ -199,7 +199,6 @@ export type EntityRef =
 // @public
 export type EntityRelation = {
   type: string;
-  target: CompoundEntityRef;
   targetRef: string;
 };
 
